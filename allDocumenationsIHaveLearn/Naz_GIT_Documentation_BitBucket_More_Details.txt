@@ -238,6 +238,26 @@
 	  			= it will come out from branchName to main 
 	  			
 	  			check which branch we are now by "git branch"
+	  			
+	  			
+	  26)  		---> git branch -m updatedNewNameOfBranch
+	  
+	  		
+	  			It will change your current branch name into "updatedNewNameOfBranch"
+	  			
+	  
+	  27)
+	  
+	  
+	  		Sometimes, we commit a message and push it to the remote repository. After that 
+	  		we found that we made a mistake in commit message and want to change from local 
+	  		to both remote repository.
+	  		
+	  		To do that: 
+	  		
+	  		i) Go to the folder terminal
+	  		
+	  		ii)
 	
 	
 	
