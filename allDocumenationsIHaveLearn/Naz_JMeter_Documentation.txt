@@ -103,13 +103,24 @@
 			-> Give a name 
 			-> Number of Threads - ( how many users)
 			-> Ram up Period - put seconds ( such as I put 5 seconds for 100 users so
-											each  second 20 users will try to hit )
+											each  second 20 users will come to 
+											and in 5 seconds 100 users will hit.)
+				In real time all the users does not hit the browser instantly. users come
+				slowing and after a certain time they all the users do their operations.
 											
-			-> Loop Count - such if I put 5 all the above 100 users will do the same 
-							thing for 5 times. which means 500 
+			-> Loop Count - Such there are 3 samplers and 100 users, Loop count is 5.
+							So, each users will execute 3 samplers in 5 times so total
+							15 times will do. such as there is, put user name, email, id, 
+							pass, gender. So a user will do this operations 5 times such
+							 as user name 5 times, email 5 times, and so on 
 							
-			-> Duration - for how long you want to run this operations Such as 30 seconds
-						  So,
+			-> Duration - for how long you want to run these operations Such as 30 seconds
+						  So, the whole load will run in the server for 30 seconds.
+						  
+		
+		Remember, From If we generate our tests from Jemter proxy system, we need to cut the 
+					samplers from HTTP(S) Test Script Recorder and paste it in our thread
+					group.
 						  
 						  Lecture 11 - Listeners
 						  
@@ -141,25 +152,51 @@
 		already exists" and the success code which is also 200. But the response message 
 		is different.
 		
-							LECTURE 12 - Aggregate Report
+		
+Listeners 01:	View Tree results report =
+		
+		This report (listeners) will show the about our test status , I mean which has passed 
+		and which one is failed. There will be always green tick mark. In report we can see
+		our request body, response body, data that we have passed.
+		
+		After completing the test in View Tree results we can search for any specific date 
+		to ensure our test is successful.
+		
+		Latency and throughput:
+		
+		Latency and throughput are two metrics that measure the performance of a computer
+		network. Latency is the delay in network communication. It shows the time that data
+		takes to transfer across the network. Networks with a longer delay or lag have high
+		latency, while those with fast response times have lower latency. 
+		
+		In contrast, 
+		throughput refers to the average volume of data that can actually pass through the 
+		network over a specific time. It indicates the number of data packets that arrive at 
+		their destinations successfully and the data packet loss.
+		
+		
+		Latency refers to the delay that happens between when a user takes an action on a 
+		network or web application and when they get a response
+		
+							LECTURE 12 -Listeners 02 =  Aggregate Report
 							
 	In aggregate report there are some features to look up.
 					
 			->	Samples - Number of users hit that specific request.
 			
 			->	Average - It is the average time taken by all the samples to execute 
-				specific. 
+				specific task (such as hit the log in button). 
 				
 			->	Min - The shortest time taken by a sample for specific label.
 			
 			->	Max - The longest time taken by a sample for specific label.
 			
 			->	Throughput-  Throughput is the number of request that are processed 
-				per time unit(seconds, minutes, hours) by the server. This time is 
-				calculated from the start of first sample to the end of the last sample.
-				Larger throughput is better. Such as , users hit the "submit" button
-				2000 times and 124/ second. which means server has handled 124 "submit"
-				in 1 second.
+				per time unit(seconds, minutes, hours) by the server for that samples. 
+				This time is calculated from the start of first sample to the end of 
+				the last sample.Larger throughput is better. Such as , users hit the 
+				"submit" button 2000 times and 124/ second. which means server has 
+				handled 124 "submit" in 1 second.
 				
 				
 				Graph
@@ -167,8 +204,12 @@
 				IN Graph the throughput should always increase and the st. divation should
 				should always increase.
 				
-				In average graph- st. diviation should be half less then average and 
+				In average graph- st. deviation should be half less then average and 
 				throughput should be always high than average.
+				
+				If st- deviation is linear then the samples are not deviating too much
+				Such as if a car is going to a stright road its okay but if it is going
+				some where else instead of driving in the road, then there is problem. 
 										
 			
 			
@@ -181,8 +222,13 @@
 		Thread group from "https://jmeter-plugins.org/wiki/PluginsManager/"
 		
 		-> Go to that web site
+		-> Download Plugins Manager
 		-> download the Jar file 
 		-> put that in your JMeter folder ext which in lib/ext
+		-> Jmeter -> Options - Plugin managers
+		
+			Here , you will see different kinds of installed plugin , From available 
+			plugins , down load the "custom thread groups".
 		-> restart JMeter , you will see when you will 
 		   "add" -> Threads (Users) -> you will see different kinds of Thread Groups now.
 		   
@@ -193,7 +239,7 @@
 		   	Concurrency Thread group
 		   	
 		   		-> Total Concurrency (60) - Total 60 users
-		   		-> Rump up time (30)	 - So in 20 seconds there will be all the users
+		   		-> Rump up time (30)	 - So in 30 seconds there will be all the users
 		   								   active in server.
 		   		-> Rump up steps count(3) - So, 60/3 = 20 users in first 10 seconds, then
 		   										20 users in 2nd 10 seconds, and 20 users
@@ -203,12 +249,25 @@
 		   	
 		   	Ultimate Thread Group
 		   		-> Start Thread Counts(50) - how many users (50) in web site will come
-		   		-> Initial delays (5) -  5 seconds delay to start the users to hit server
+		   		-> Initial delays (5) -  5 seconds delay to start the users to hit server.
+		   								Nothing will happen in 5 seconds just server is
+		   								running then after 5 seconds the users will come
+		   								in a flow.
 		   		-> Start up time (30) - In 30 seconds all the users we be in web site.
+		   								Because when a deals go on in an e-commerce 
+		   								web site, all the users doesn't come in exact time
+		   								right? first few minutes for instance 300 users ,
+		   								then 1000 more , then 10,000 in 15 minutes. This 
+		   								is how it works.
 		   		-> hold Load for seconds (60) - 50 Users will be in the server for 60
-		   										seconds.
-		   		-> Shutdown time (10) - How slowly the Users will go way from the server.
-		   								In 10 seconds all the users will go away.
+		   										seconds. After 5 seconds initial delay,
+		   										30 seconds all the users comes in 
+		   										server then, all the users will perform
+		   										for 60 seconds.
+		   		-> Shutdown time (10) - , After 60 seconds, performance , the users number will
+		   					 			  gradually decrease in 10 seconds.
+		   								  60 How slowly the Users will go way from 
+		   		                          the server. In 10 seconds all the users will go away.
 							
 						
 						
@@ -231,20 +290,29 @@
 			there is Add- Config Element- HTTP Cookie Manager.
 			After doing So, you Can run log in pages performance by your JMeter.
 			
+			In any project, when the team members are talking about cookies, session
+			
 			
 						
 						LECTURE 18 & 19 - ASSertions in JMeter.
 						
-			So, Suppose our test can show pass , can show 200 response code even the 
-			response message is wrong.
+			So, Suppose our test such a sampler can show pass , can show 200 response
+			code even the response message is wrong.
 			
 			So, we put put assertions in response body, code anything by JMeter
 			
 			to Put assertions, first run the thread group for just 1 user.
 			then in the requests pages, such as log, authentication in specific 
-			request 
-		1)	Add- Assertions- Response Assertions or JSON Assertions or Xpath Assertions
+			request.
 			
+			Now the sampler in which we want to add Assertions. For instance there
+			is login sampler, authentication sampler, success message sampler.
+			Suppose I want to assert that after login the authentication sampler's
+			response body has a successful message "Thanks for log in ". Now click
+			 right on that sampler,
+		1)	Add- Assertions- Response Assertions or JSON Assertions or Xpath Assertions
+			( In Sampler we use, Response Assertions, Size Assertions, HTML Assertion,
+				JSON Assertion )
 		2)	Response Assertions =
 			
 			-> click on "Text response"
@@ -262,7 +330,10 @@
 			 Thread - Add - Listeners - Assertions Result
 			 
 			 Here, we can see the results of assertions if they are passed there will be 
-			 no error.
+			 no error. I mean, if we add any assertions in our test, that can be in 
+			 Samplers or in test, It will show all kind of assertions that we have put
+			 and if any one of this fails, it will show as a failure. We can check it 
+			 By Adding the "Assertions Results" in Thread level
 			 
 			 
 			 
@@ -277,6 +348,12 @@
 			Add -> Assertions -> Size Assertions.
 			
 			Now we can give, that our response can be < or > or <= or >= 
+			
+			Size Assertion Matters, such as when a web page doesn't load properly with
+			its images, css, png, gif files it gives lower page size than the actual.
+			To validate the size of a test sampler with expected size, we use the
+			size assertions.
+			
 			
 		Duration Assertions:
 		

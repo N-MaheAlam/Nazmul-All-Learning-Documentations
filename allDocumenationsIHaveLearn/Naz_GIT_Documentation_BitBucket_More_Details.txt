@@ -257,7 +257,35 @@
 	  		
 	  		i) Go to the folder terminal
 	  		
-	  		ii)
+	  		Now,  from the folder terminal
+	  		
+	  		 ----> git commit --amend -m "New Message"
+	  		 
+	  		 ( It will change the commit message from local machine)
+	  		
+	  		then, 
+	  	
+	  		-----> git push --force
+	  		
+	  		(We are forcing now  to change the remote repository's commit message)
+	  		
+	  		IF WE WANT CHANGE FROM LOCAL REPOSITORY, then
+	  		
+	  		
+	  			-----> cd path/to/your/repository
+	  			
+	  			Navigate to the local repository
+	  			
+	  			-----> git commit --amend -m "new message"
+	  			
+	  			Update the new commit message
+	  			
+	  			----> git log 
+	  			
+	  			check the commit message 
+	  			
+	  			
+	  			
 	
 	
 	
