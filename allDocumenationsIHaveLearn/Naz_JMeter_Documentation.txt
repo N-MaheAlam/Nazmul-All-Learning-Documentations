@@ -29,7 +29,7 @@
 		=>	JMeter is developed in Java , So you can use it in any platform such as 
 			windows, mac, linux.
 			
-		=>	Download JMeter binary .tgz form from there official web site.
+		=>	Download JMeter binary .tgz (zip) form from there official web site.
 		
 		=>	Now go to the JMeter/bin/jmeter.sh and drop this folder in your terminal
 			it will start the JMeter in your system (For Mac OS).
@@ -228,7 +228,8 @@ Listeners 01:	View Tree results report =
 		-> Jmeter -> Options - Plugin managers
 		
 			Here , you will see different kinds of installed plugin , From available 
-			plugins , down load the "custom thread groups".
+			plugins , down load the "custom thread groups" and click on "Apply changes
+			& restart button".
 		-> restart JMeter , you will see when you will 
 		   "add" -> Threads (Users) -> you will see different kinds of Thread Groups now.
 		   
@@ -372,7 +373,7 @@ Listeners 01:	View Tree results report =
 		
 		First let's under stand, Login is a module where we provide user name and password
 		
-		2nd, search for light, select the flight is a module.
+		2nd, search for fight, select the flight is a module.
 		
 		then provide the details of passengers and credit card is another final module.
 		 
@@ -389,14 +390,18 @@ Listeners 01:	View Tree results report =
 		 3) this time in "HTTP(S) Test Script Recorder" make the 
 		 	"Test Plan Creation" into "Use Recording Controller" instead of 
 		 	" Learn Test Plan -> HTTP(S) Test Script Recorder"
-		 	
-		 4)	Create a new Thread Group "Thread Group For Controller"
+	
+	Now In Thread group we will create a Recording controller which will record our each
+	 samplers that we will perform in web application instead of recording in HTTP 
+	 Test Script Recorders".	
+	
+		 4)	Create a new Thread Group give name "Thread Group For Controller"
 		 5) In "Thread Group For Controller" 
 		 	Add -> Logic Controller - Recording Controller
 		 
 		 In recording  controller we will record each scenarios, such for log in,
 		 
-		 We go to the website , put email and password then log in. This is a controller
+		 We go to the web site , put email and password then log in. This is a controller
 		 
 		 Then, search the product add to the cart , this can be a controller,
 		 Then, give address , credit card details then purchase this can be a controller.
@@ -427,7 +432,7 @@ Listeners 01:	View Tree results report =
 		"log in controller", purchase controller.
 		
 		Now, 
-		From controller if we click on "genrate parent sampler" it will show the report 
+		From each controller if we click on "generate parent sampler" it will show the report 
 		for the controller not the child samplers. because log in a functionality right?
 		So, its giving the report for log in functionality
 		
@@ -440,14 +445,31 @@ Listeners 01:	View Tree results report =
 						then we can cut and paste it in "transaction controller" for use
 						So "Log In controller" with name we understand this controller
 						perform log in functionality.
+		
+		Simple Controller
+		
+					=>	Simple controller just stores the samplers, when we will run
+						the test, it will show the samplers name and there report, 
+						not the "Simple Controller" as a whole. Such as , when we run
+						tests, such as in Transaction controller it shows, its each 
+						samplers report as well as the whole transaction controller to 
+						show, how much time , average time, through put is taking 
+						this transaction controller. But in report there will be no 
+						"Simple Controller" row to show the results of that controller.
 						
 		
 		Module Controller
 					
-					=>	 Such as, I have 10 Controller in my Thread group but I want to run a 
-					specific controller for few more times to perform a task 
-					then we can create a Module controller where we will indicate only the 
-					controller which I want to run only.
+					=>	Such as, I have 10 Controller in my Thread group but I want to run a 
+						specific controller for few more times to perform a task 
+						then we can create a Module controller where we will indicate only the 
+						controller which I want to run only. For instance, in my test, I have
+						Log in section ( Log  transaction controller), I will sign off and 
+						want to run the log in section again. Will I rewrite the process?
+						No, I will use a module controller in my certain position where I 
+						want to run the login again then  in module controller , I will 
+						indicate the login controller. Thats it.
+					
 						
 							
 		InterLeave Controller
@@ -458,22 +480,26 @@ Listeners 01:	View Tree results report =
 						loop count we will provide in our thread group. Such as In InterLeave
 						Controller there are 3 transaction controller and in my thread group
 						there are log in controller , purchase controller and that InterLeave
-						controller.
+						controller. I will put in myn thread group "Loop Count" = 3 which means
+						each controller will perform 3 times. But
 						
-						So, When I will run I will see that log in will run for 3 times, purchase
-						for 3 times but after login purchase there will be on InterLeave
+						When I will run I will see that log in will run for 3 times, purchase
+						for 3 times in details,  after login &  purchase there will be on InterLeave
 						controller, then login and purchase again then another Interleave 
 						controller2 then log in , purchase again and the last InterLeave 
-						controller. So, the login 3 times, purchase 3 times and in each iteration
+						controller3. So, the login 3 times, purchase 3 times and in each iteration
 						one InterLeave controller has been picked ( the InterLeave controllers
-						 go in orders such as 1st one, then 2nd one, then final one)
+						 go in orders such as 1st one, then 2nd one, then final one). It 
+						 flows top to bottom scenario.
 									
 						
 						
 		RunTime Controller
 		
 					=>	In, Run time controller we put a controller and tells to run it for
-						certain times (seconds ) then it will go to the next controller.
+						certain times (seconds ) then it will go to the next controller. We
+						can also put a sampler which will hit the server or specific request
+						for certain seconds.
 						
 					
 					Create a Run time controller in thread group. Inside runtime controller
@@ -488,11 +514,17 @@ Listeners 01:	View Tree results report =
 						he can check the credit card due date. So here customers can do 
 						anyone of this without going through any order. Here the RunTime
 						controller comes into picture. When we run the Thread it will pick
-						randomly one by one. 
+						randomly just one sampler. 
 						
 						The Only difference between Random Controller and InterLeave Controller
 						InterLeave, picks according to the order whereas Random Controllers
-						go though any random pick up.
+						go though any random pick up just one sampler in each iteration.
+						
+		
+		Random Order Controller
+					=>	Random order controller pick all the samplers but randomly where as
+						Random Controller picks one sampler in an iteration.
+						
 						
 		IF Controller
 		
@@ -522,11 +554,62 @@ Listeners 01:	View Tree results report =
 						we mention 2 times and in loop controller we mention for 5 times
 						So all together it will run 5*2 = 10 times.
 						
+		
+		While Controller
+					
+					=>	In If Controller the controller runs for one time if the condition is 
+						true whereas in while controller, the script is executed so on until
+						the condition becomes false.
+						
 						
 						
 										LECTURE 27 - Timers
 										
+		Suppose, in my thread group the loop count is 10 that means, thread group will run 
+		for 10 times. When the thread is running after each iteration I want to put some
+		delay for couple of seconds. Here "timers" come into picture. For an example, 
+		a user bought a product, now the product is sold out. Another customer just about
+		to click the button to buy that product. When the first customer completed the 
+		order, the database might take some times to update. This is a delay in response
+		of application. So, we put some delay to face such situation. One thread will perform
+		its task. After that the thread will stop for few seconds and then the next thread
+		will start. 
+		
+		Constant Timer: 
+		
+				=>	Wait a certain amount of time then start the next thread. Remember,
+					If I put the timer before any controller , first the timer will wait
+					as we will fix and then it will perform the test. and if we put timer
+					at last, it will execute each thread group then wait then new thread will
+					start.
+					
+		[Remember we can put timer in also in controller , samplers ]
 										
+	
+	Gaussian Random Timer: 
+	
+				=>	In this timer, there are two types of timer we put. One is fixed and another
+					is deviation times. Suppose deviation timer is 100 and fixed timer is 300.
+					So, the total delay time will be 300 + (0 to 100)[let say 50] = 350. Deviation
+					means here it will pick random ms between 0 to 100 as we declare deviation
+					100.
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+											
 										
 		
 		
