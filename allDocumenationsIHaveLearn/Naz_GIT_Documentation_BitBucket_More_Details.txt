@@ -179,7 +179,7 @@
 		18)		--->  git remote set-url hereGiveTheLinkWhereWeWantToPushOurCode
 		
 					= if we have the code from a different url or local system
-					  but we want to push our code in a differe repository, then we 
+					  but we want to push our code in a different repository, then we 
 					  can set the new url repository like above.
 					  
 		19)		---> git config --get remote.origin.url

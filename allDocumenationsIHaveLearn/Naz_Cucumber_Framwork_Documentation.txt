@@ -55,7 +55,7 @@
 		
 		IN ORDER to log in facebook -> out come want to log in
 		
-			AS A facebook user
+			AS A face book user
 			
 				I WANT TO sign in my account by putting email and pass.
 				
@@ -77,6 +77,7 @@
 		GIVEN
 		WHEN
 		THEN
+		AND
 			
 =>	IF we consider the above scenario what could be a QA guy to 
 	do to check the behaviour of that particular business scenario?

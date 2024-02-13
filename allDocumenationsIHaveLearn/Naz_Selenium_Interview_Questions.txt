@@ -150,9 +150,16 @@
 	
 	-	Select
 	
-	-	Actions (always use "build().perform()" after the actions)
-		Action Class in Selenium is a built-in feature provided by the
-		selenium for handling keyboard and mouse events.
+		->	This Select class is used in Selenium when we 
+				have a select options. we can select by index,
+				by value, de select all by creating an object of
+				that class.
+	
+	-	Actions 
+	
+		->	(always use "build().perform()" after the actions)
+				Action Class in Selenium is a built-in feature provided by the
+				selenium for handling keyboard and mouse events.
 		
 	-	Alert 
 	
@@ -167,10 +174,7 @@
 	
 	-	JavascriptExecutor
 	
-			->	This Select class is used in Selenium when we 
-				have a select options. we can select by index,
-				by value, de select all by creating an object of
-				that class.
+			
 				
 			->	JavaScriptExecutor is an Interface that helps to execute
 				JavaScript through Selenium Webdriver. JavaScriptExecutor
@@ -231,7 +235,7 @@ js.executeScript("document.querySelector('.tableFixHead').scrollTop=5000");
 		
 		option.setAcceptInsecureCerts(true);
 		
-		// put the behaviour in the arguement
+		// put the behaviour in the argument
 		WebDriver d = new ChromeDriver(option);
 		
 	2) 
@@ -243,7 +247,7 @@ js.executeScript("document.querySelector('.tableFixHead').scrollTop=5000");
 		
 	3)
 		// take screenshot as a file
-		File src = ((TakesScreenshot) d).getScreenshotAs(OutputType.FILE);
+		File src = ((TakesScreenshot) d.getScreenshotAs(OutputType.FILE);
 		
 		// store the screen shot in desktop
 		FileUtils.copyFile(src, new File("/Users/nazmulmahealam/Desktop/my.png"));

@@ -593,19 +593,168 @@ Listeners 01:	View Tree results report =
 					So, the total delay time will be 300 + (0 to 100)[let say 50] = 350. Deviation
 					means here it will pick random ms between 0 to 100 as we declare deviation
 					100.
+					
+		
+	Constant Throughput Timer:
+	
+	
+	
+								LECTURE -29 Regular Expression
+								
+								
+		
+		Suppose, When We want to extract user name and password from a response body and 
+		want to use in our JMeter dynamically.
 				
 				
 				
 				
 				
+								LECTURE 32 - Manual Script Recording
+								
+								
+								
+		Normally, we record our script for instance, log in , adding product to the cart by
+		JMeter but we can manually provide our HTTP request instead of recording. 
+		Such as , fill the necessary fields with URL, http type, port number, request
+		type.
+		
+		Now, Create a new plan,
+		
+		->	Add Thread group
+		-> In Thread group, Add -> sampler -> HTTP Request
+		-> Give, the http or https
+		-> provide the url
+		-> check if it has any port number ( https//: www.nazmul.com :1080) here
+		   1080 is the port number.
+		-> place is it GET, Or post or something else
+		-> give the path -> such as www.nazmul.com/image here "image" is the path
+		-> give the parameters if needed such as , user name - value, pass -value
+		
+		Go to you sampler website, inspect element, then go to network tab
+		, there you can find status code, url, post data
+		
+		-> use this data to file in your parameters in Http request
+		-> you can put assertion on your Request sampler
+		-> add view tree results in your thread group to see the results
+		
+		
+		
+								LECTURE 33 - Data driving
+								
+		
+		Suppose, our business owner provides 1000 users to test, with their names and passwords.
+		So, should I test them one by one? No. We can take this data sets in our JMeter
+		by calling the CSV file in our sampler where we will need this data.
+		
+		-> Click on the thread group -> Add -> Config element -> CSV Data Set Config.
+		
+		Now place this CSV element above the sampler where we will need this.
+		
+		Now in CSV config 
+			
+			->	Filename = select the location of the file
+			
+			->	File encoding = if needed, place the correct format
+			
+			->	Variable Name = name1, name2, name3 (put comma after each variable)
+			
+			->	Recycle on EOF = If I have 10 new users and my thread is group is 15, my test 
+								 will fail if I am creating new user. It depends such as if 
+								 you are registering new users you should
+								 not run the data again which is used. So, you need to make it
+								 false. or if you want to log in, you can use the same user right
+								 So, then you can make it true. Such as log in users are 10 data
+								 and my thread is 100. I can make it true.
+								 
+			-> Stop Thread in EOF = Make it true. If i want to run only the data one time
+									in my thread group.
+									
+									
+		Placing the data sets of CSV file: 
+		
+		Now, go to the sampler where we want to use our data sets. put the data "value" into 
+		"${variable_name}". not in "Name" but in "value".
+		JMeter will automatically detect it as a variable when you place the value in dollar sign
+		and curly braces. 
+		
+		
+		
+								LECTURE - 34 - BeanShell Scripting
+				
+	Suppose, in our JMeter we load a CSV file. There is a condition, if the user if from China,
+	the user name should be like "usernameChina".So, we should not hard code this appends right.
+	We can use the BeanShell scripting preprocessor file in our thread than write command to 
+	follow the instructions.
+	
+	Click on Thread -> add -> Preprocessors -> BeanShell Scripting
+	
+	
+	BeanShell has some built in keywords to use for scripting language as well as Java syntaxes
+	can also be used in BeanShell.
+	
+	We can declare the variable in same way we do in Java.
+	Some syntaxes of BeanShell are: 
+	
+	
+		1)	log.info = to see the output in console
+		
+		2)	vars scope is limited in thread group. But sometimes we need to pass the value to 
+			another thread group. That time we use "props" which holds the value in 
+			test plan and can be shared with all the threads. "prev" is also a class we 
+			stored the results of the sampler and we use the "prev" in "Post processor Bean
+			Shell scripting". Let see example.
+			
+			
+			I am running a sampler, So, I want to see the values of that sampler variables.
+			So, I will use "vars" in my preprocessor BeanShell scripting page to play with
+			variables. and remember this preprocessor will be placed before the sampler.
+			
+			I will use the "ctx" class to play with my current thread.
+			
+			After I obtain the outcomes below the sampler I will add a post processor
+			BeanShell scripting to play with the results of sampler for instance response
+			code check, response message check using "prev" class.
+			
+			And finally, "props" will be used to add, delete, modify the values in global
+			level (test plan level)
+			
+			
+			
+		vars.get = to get the value from a certain JMeter variable
+		vars.put = to update the value in a determined variable
+		
+		ctx = it is called JMeterContext which is used such as for the thread number 
+				which is running now, JMeter variables for current thread.
+		
+		
+				
+								LECTURE - 38 - Dynamic Response ( Co- Relation)
+								
+		
+								LECTURE - 41 - Run JMeter from terminal
 				
 				
-				
-				
-				
-				
-				
-				
+		Sometimes we want to run our test without running the JMeter by calling the test plan file
+		in terminal ( In jenkins we can not trigger tests in JMeter but we use the command line to 
+		run our test cases without running the JMeter.
+		
+		To do so,
+		
+			1) Go to the JMeter folder from command line 
+			
+			then put the command 
+			
+			2) 
+			-n = non gui mode
+			-t = test plan
+			-l = results
+			
+			->	"jmeter -n -t pathOfThatTestFiles -l putAName.jtl_ToStoreTheResultsInAFile"		
+			
+			
+			We can use the blazemeter.com website to run our Jmeter scripts which gives 
+			a very good UI report and we are also not running the tests in JMeter.
 				
 				
 				

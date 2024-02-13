@@ -1,34 +1,272 @@
 
 
-							LECTURE - 07
+							LECTURE - 07 - Cypress Installation 
 		
 		
-	1)	Install Node.js because Cypress runs in JavaScript, So, when we want to
-		run java code such as eclipse installation, we download java. 
+	1)	Install Node.js (.pkg file) because Cypress runs in JavaScript, So, when we 
+		want to run java code such as eclipse installation, we download java. 
 		Same when we want to run any java script code, we need to download Node.js
 		
 
 
 	2)	Install, Visual code studio in computer
+	
+		Now, Open the visual studio, then Go to terminal.
+		At the terminal create a new folder by name 
+		"Nazmul-Cypress-Automation"
+		
+		Commands 
+		
+		1)		-> " mkdir Nazmul-Cypress-Automation"
+		
+		2)		Now go to that folder by giving command
+				
+				-> "cd Nazmul-Cypress-Automation "
+			
+		3)	Give below command. It will automatically create a package.json file
+				in our project folder. This "package.json" file helps us to use the
+				dependencies that are hosted in npm website. (It works as a maven 
+				dependency where we use to bring the selenium, cucumber, testNG jars 
+				in our peoject.
+				
+				
+				-> "npm -i init"
+				
+				
+		4)		Now, install the cypress into this project by giving the command
+		
+				-> "npm install cypress --save-dev"
+				
+				It will install cypress in our project and automatically save cypress
+				in our "package.json" file. So, next time if any developer works on 
+				my project, he/she will download the project and run this command 
+				"npm install". That command will download all the dependencies for
+				this project from the npm official web site.
 
 
 
+							LECTURE - 08 - Cypress Runner
+
+		Now, in our project folder we will see a folder "node_modules" is established
+		automatically when we configured cypress from the command line. Next, from 
+		command line, run the below command 
+		
+		5)		-> "node_modules/.bin/cypress open"
+		
+	=>	It may take few seconds to open the cypress window in our local machine.
+		
+	=>	Once the cypress window is opened, you might see 2 boxes "E2E Testing" 
+		& "Component Testing.
+		As a QA, we will focus on E2E testing and Component testing will be done by
+		developers when they want to perform white box testing.
+		
+	=>	Once we click on the "E2E Testing", it will confirm that some files will be 
+		added in our project mechanically for instance "cypress.config.js" file will
+		be visible in our project directory. 
+		
+		
+	=>	Now, It will show us in which browser we will perform our test. Then click on
+		the browser, a new window will pop up, will show the test runner window.
+		
+		
+	=>	Go to the visual studio in project you will see, a folder "cypress". Now 
+		in cypress folder create a new folder "integration" (Cypress developers 
+		recommended to write test cases in "integration" folder but later they 
+		removed this recommendation ).
+		
+	=>	In 'integration' folder create a new folder "examples" to write the test cases.
+		Later we will introduce more folders for API testing , mock testing and so on.
+		
+		
+	=>	Now, in "examples" folder create a file with ".js" extension such as "Test1.js"
+		In Java we have  we call this file a Java file, test file but in JavaScript we
+		call it as a "Spec" file. I mean test cases are called Spec files.
+		
+		Now, in "cypress.config.js" file put the below code in "e2e" attribute
+		
+		vi) -> specPattern: 'cypress/integration/examples/*.js'
+		
+		"cypress.config.js" BEFORE :
+		
+		=======================================================
+		const { defineConfig } = require("cypress");
+
+			module.exports = defineConfig({
+ 		 e2e: {
+    		setupNodeEvents(on, config) {
+      		// implement node event listeners here
+    		     },
+   					 
+  			  },
+			
+			});
+
+		=========================================================
+
+		"cypress.config.js" AFTER :
+		=======================================================
+		const { defineConfig } = require("cypress");
+
+			module.exports = defineConfig({
+ 		 e2e: {
+    		setupNodeEvents(on, config) {
+      		// implement node event listeners here
+    		     },
+   				 specPattern: 'cypress/integration/examples/*.js' // here I placed
+  			  },
+			
+			});
+
+		=========================================================
+
+	Now, save the file in visual studio then you may see the "Test1.js" in cypress
+	Runner.
+	
+	
+	
+						LECTURE - 10 - First Test 
+	
+	
+	=>	In Java we used TestNG or JUnit a a testing framework from Java.But in 
+		JavaScript we use Jasmine or Mocha for Testing framework which are JavaScript
+		based testing framework. Cypress recommend to use Mocha as a testing framework
+		in Cypress.
+		
+		
+		In Mocha
+		
+		1)	"describe" block is act as test suite which has multiple test cases
+		
+		2)	Each "it" block represents as a test case.
 
 
 
+						LECTURE - 11 - Browser Details / Head/Headless/ CI 	
 
 
+		
+	=>	Cypress Screen, you can select any web browser (Chrome, firefox, Electron,
+		Edge).
+
+	=>	Or when we run test in cypress test runner, we can also change the browser
+		from there.
+		
+	=>	Cypress shows only the browser versions that I have in my local system.
+		Suppose, in chrome web site there could a new version for instance 130.0
+		but in my system chrome is 121.0. So, cypress will run in 121.0 version
+		as this version is installed in my system.
+		
+		
+		RUNNING CYPRESS FROM COMMAND LINE:
+		
+		Remember, if we run cypress from command line, it will always run in 
+		headless mode.
+		
+		From command line on that folder run below command to run all the test
+		cases in headless mode in electron browser
+		
+			
+			6)	We will see that our test is running and how many test cases are
+				passed and failed, will show in command line.
+				
+			
+					=>	"./node_modules/.bin/cypress run"
+					
+		
+			7)	Now, I want to run in head mode just edit the above command. It will
+				run in electron browser. Electron is a Chrome type browser but gives
+				faster results. 
+			
+				
+				
+					=>	"./node_modules/.bin/cypress run --headed"
+
+			8)	Let's say I want to run in chrome browser. In Command line give below
+				code.
+				
+					=>	"./node_modules/.bin/cypress run --browser chrome"
 
 
-
-
-
-
-
-
-
-
-
+					
+						LECTURE - 11 - Project Architecture
+	
+	
+	
+		When we open the cypress from command line , automatically it creates some
+		files or folder for us, such as 
+		
+		
+		fixtures	->	Is basically responsible to store the test data. In our test
+						we might use data from Excel, CSV or JSON files. Cypress is
+						suggesting us to store the data in fixtures file so that we can
+						use the data sets in our test cases through.
+						
+		
+		integration	->	We should write all our test cases in integration folder.
+						We can create sub folders to to write test cases inside
+						the integration folder.
+						
+		
+		supports	->	We will define the reuseable test cases in support folder
+						So that we can use these methods throughout our tests.
+	
+	
+	
+							LECTURE - 14 - Locator creation
+	
+	
+		
+		
+		In Selenium, it supports ID, CSS selector, xpath, partial text, class name,
+		tag name.
+		
+		Cypress supports only CSS selector.
+		
+		LOCATOR WRITING SYSTEM IN CYPRESS: 
+		
+		
+		i)	For Id we can write as	=	#idName or tagName#Id
+		
+		ii)	For class we can write	=	".className"	or 
+		"tagName.className" ( to uniquely identifying the class name)
+		
+		iii) Another way is 
+			
+			tagName[attribute = 'value'] = input[name = 'loginName']
+			
+		
+		iv)	Final way is terversing from parent to child
+		 	for instance in selenium we used like below
+		 	
+		 	selnium	=	parentTag/childTag
+		 	
+		 	but in cypress we provide space only
+		 	
+		 	Cypress = parentTag childTag
+		
+		If there is a css with multiple name with space for instance " footer design"
+		make sure there is no space in between these when we will use them in cypress
+		like this way ".footer.design" ( there will be no space but (.)dot
+		
+		
+		
+						LECTURE - 15 - Locator creation
+	
+	get
+	visit
+	find
+	each
+	contains
+	includes
+	click
+	type
+	
+	
+	
+	
+	
+	
+	
 
 
 
